@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Prompt Tester - LUXENOIR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #f8f8f8;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #d4af37, #f8f8f8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #d4af37;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .prompt-selector {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #f8f8f8;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 1.5rem;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        textarea {
+            min-height: 400px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #d4af37, #e8d24c);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+
+        .tips {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border-left: 4px solid #d4af37;
+        }
+
+        .tips h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tips li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips li:before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+
+        .char-count {
+            text-align: right;
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ChatGPT Prompt Tester</h1>
+        <p class="subtitle">🎨 Generate Revolutionary Fashion Products for LUXENOIR</p>
+
+        <div class="prompt-selector">
+            <label for="promptSelect">Choose Your Prompt Template:</label>
+            <select id="promptSelect" onchange="loadPrompt()">
+                <option value="">-- Select a Prompt --</option>
+                <option value="ultimate">🔥 Ultimate Product Generation</option>
+                <option value="wearable-tech">💎 Wearable Tech Fusion</option>
+                <option value="nostalgia">⏰ Nostalgia Meets Future</option>
+                <option value="niche">🎯 Untapped Niche Markets</option>
+                <option value="anti-fashion">🧘 Anti-Fashion Fashion</option>
+                <option value="experiential">🌈 Experiential Fashion</option>
+                <option value="cultural">🌍 Cultural Fusion</option>
+                <option value="functional">💎 Functional Art</option>
+                <option value="emotional">💚 Emotional Intelligence</option>
+                <option value="maximalist">🎭 Maximalist Rebellion</option>
+                <option value="impossible">⚡ The Impossible List</option>
+                <option value="mega">🚀 MEGA Prompt (Everything)</option>
+            </select>
+
+            <label for="promptText">Your Prompt (Customize as needed):</label>
+            <textarea id="promptText" placeholder="Select a template above or write your own prompt..."></textarea>
+            <div class="char-count">
+                <span id="charCount">0</span> characters
+            </div>
+
+            <div class="button-group">
+                <button onclick="copyPrompt()">📋 Copy to Clipboard</button>
+                <button class="secondary" onclick="openChatGPT()">🤖 Open ChatGPT</button>
+                <button class="secondary" onclick="clearPrompt()">🗑️ Clear</button>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3>💡 Pro Tips for Best Results:</h3>
+            <ul>
+                <li>Be specific about your brand aesthetic and values</li>
+                <li>Give ChatGPT a personality that matches your vibe</li>
+                <li>Ask for both creative AND practical suggestions</li>
+                <li>Request examples and reasoning, not just lists</li>
+                <li>Follow up with deeper questions on promising ideas</li>
+                <li>Save the best responses for your product roadmap</li>
+                <li>Test ideas with your audience before full production</li>
+                <li>Combine multiple prompt responses for unique concepts</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const prompts = {
+            ultimate: `Yo, listen up! I need you to go FULL VISIONARY MODE and help me create some absolutely mind-blowing, jaw-dropping fashion products for my luxury print-on-demand store LUXENOIR.
+
+Here's the vibe: I'm not here for basic tees and hoodies that everyone and their grandma is selling. I want products that make people stop mid-scroll and go "WAIT, WHAT?!"
+
+Be conversational, be bold, don't hold back. Use that Gen Z energy mixed with wisdom from the fashion gods of the past. Make it poetic when the moment calls for it, but also keep it real and practical. Share your hot takes. Be playful but purposeful.
+
+I need you to suggest:
+
+1. **15 COMPLETELY UNEXPECTED product categories** - not the usual stuff. Think beyond clothing.
+2. **Revolutionary print styles** - not just "put a logo on it."
+3. **Niche audience segments** I haven't thought of
+4. **Cross-industry fusion ideas** - combine fashion with tech, art, science, whatever!
+
+For each idea:
+- Tell me WHY it's going to be huge
+- How it honors tradition while pushing boundaries
+- Why NO ONE else is doing this
+- Practical execution tips
+
+Ready? Let's GOOO! 🚀✨`,
+
+            'wearable-tech': `Alright bestie, we're diving into the intersection of fashion and technology, but make it CHIC, not geek.
+
+I'm talking about print-on-demand products that blur the line between wearable art and functional tech accessories. Not those ugly smartwatch bands everyone's making - I need you to think BIGGER and WEIRDER.
+
+Consider:
+- What if fashion accessories could enhance your digital life?
+- How can prints interact with light, temperature, or movement?
+- What would Steve Jobs wear if he was also a haute couture designer?
+
+Give me 10 product ideas that sound impossible but are actually totally doable with modern printing techniques. Be poetic about the vision but PRACTICAL about the execution.
+
+And please, roast me if any of my current products are too basic. I can take it. 💀`,
+
+            nostalgia: `Yo, I need you to channel your inner time traveler. We're creating products that honor the GLORY DAYS while being so futuristic they make people question reality.
+
+Think: What if Art Deco met cyberpunk? What if 90s rave culture merged with minimalist Japanese design?
+
+Give me:
+- 8 product concepts that combine historical fashion movements with cutting-edge trends
+- Print styles that reference the past but feel FRESH
+- Items that would make both your grandma and a 16-year-old TikToker say "okay that's fire"
+
+Be conversational but deep. Make me FEEL the cultural significance. No cap! 🎭✨`,
+
+            niche: `Real talk: everyone's targeting the same audiences. Fitness girlies, gamers, dog moms - we GET IT.
+
+I need you to identify 12 COMPLETELY OVERLOOKED communities or identity groups that are being ignored by mainstream fashion.
+
+For each niche:
+1. Who are they really? (Be empathetic - no stereotypes)
+2. What do they desperately want but can't find?
+3. What symbols or aesthetics speak to their soul?
+4. How can I serve them with luxury POD products?
+5. Why is this market about to EXPLODE?
+
+Make me understand these communities deeply. That's the goal. Let's go! 🎯`,
+
+            'anti-fashion': `Here's a paradox: I want to create fashion products for people who claim they "don't care about fashion."
+
+How do you market luxury to people who reject luxury? How do you sell "effortless" when effort is what we're selling?
+
+Give me:
+- 7 product concepts that appeal to the "above fashion" crowd
+- Prints that communicate "I don't try hard"
+- Messaging that resonates without triggering anti-consumerist alarms
+- The psychology behind why these work
+
+Be honest about the irony. These customers are smart - show me how to be authentic! 🧘‍♂️✨`,
+
+            experiential: `What if fashion wasn't just about WEARING something, but about EXPERIENCING something?
+
+Products that:
+- Change throughout the day
+- Tell a story as you interact with them
+- Create moments worth sharing
+- Have hidden features or Easter eggs
+
+Give me 10 experiential fashion product ideas that sound like magic but are rooted in reality. Explain the emotional journey. Make me FEEL it.
+
+Let's create fashion that people don't just buy - they LIVE. 🌈🎪`,
+
+            cultural: `The world is FULL of incredible cultural aesthetics that rarely get mainstream attention.
+
+I want products that celebrate global cultures in a way that's:
+- Respectful and researched
+- Fresh and unexpected
+- Empowering to those communities
+- Genuinely beautiful and wearable
+
+Give me:
+- 15 cultural fusion concepts that haven't been done to death
+- How to research and respect the origins
+- Modern twists that make timeless aesthetics feel current
+
+Be empathetic here. Share your strong opinions on appreciation vs. appropriation. 🌍✨`,
+
+            functional: `I want products that are BOTH gorgeous statement pieces AND actually useful.
+
+Fashion that solves modern problems. Wearable organization systems. Items that replace multiple purchases.
+
+Give me 12 "functional art" product ideas with:
+1. The practical problem it solves
+2. The aesthetic that makes it luxury-worthy
+3. How the print design enhances the function
+4. Why this is a no-brainer purchase
+
+Be playful but practical. Get to the point! 💎🔧`,
+
+            emotional: `Fashion is emotional. But most products only tap into basic emotions: confidence, belonging, status. BORING.
+
+I want products for the full spectrum:
+- Processing grief
+- Celebrating neurodiversity
+- Marking personal transformations
+- Honoring mental health journeys
+
+Give me:
+- 10 product concepts for emotional milestones
+- Design approaches that feel supportive, not exploitative
+- How these can be both personal and shareable
+
+Let's create fashion that SEES people. Really sees them. 👁️💚`,
+
+            maximalist: `Everyone's doing minimalism. SCREW THAT.
+
+I want MAXIMALISM. "If it's worth doing, it's worth overdoing."
+
+We're talking:
+- Prints on prints on prints
+- Clashing patterns that somehow work
+- Optical illusions and visual chaos
+
+Give me 8 over-the-top product concepts that:
+1. Break every design rule
+2. Are cohesive despite the chaos
+3. Target the "extra" crowd
+4. Actually look expensive
+
+Make it make sense. Make it SENSATIONAL. 🎨🎭✨`,
+
+            impossible: `I want products that make me go "there's NO WAY we can print that"... and then convince me I'm wrong.
+
+What if:
+- We printed on materials no one uses for fashion?
+- We created products for body parts people don't usually adorn?
+- We made fashion for NON-humans?
+
+Give me:
+- 15 "impossible" product ideas
+- Why they're actually possible with modern POD
+- The untapped market for each
+- How to position them as innovative, not weird
+
+Break my brain. Then show me the execution plan. ⚡🤯`,
+
+            mega: `Alright ChatGPT, we're speedrunning product innovation.
+
+Embody: Gen Z chaos + Millennial nostalgia + Fashion historian + Silicon Valley disruptor + Brutally honest bestie
+
+Generate the ULTIMATE product lineup for a luxury POD store entering 2025:
+
+- 25 product concepts across different
+# Continue the mega prompt and finish the HTML file
+cat >> prompt-tester.html <<'EOF'
+ categories
+- 10 printing innovations I should watch
+- 5 cultural movements to tap into
+- 3 "moonshot" ideas that could change everything
+
+For each product:
+1. The "WOW" factor
+2. The market opportunity
+3. The execution path
+4. The story to tell
+
+Be conversational but comprehensive. Surprise me. Teach me something. Make me excited about my own business again.
+
+Let's make fashion history! 🎨🚀✨🔥`
+        };
+
+        const textarea = document.getElementById('promptText');
+        const charCount = document.getElementById('charCount');
+
+        // Update character count
+        textarea.addEventListener('input', () => {
+            charCount.textContent = textarea.value.length.toLocaleString();
+        });
+
+        function loadPrompt() {
+            const select = document.getElementById('promptSelect');
+            const promptKey = select.value;
+            
+            if (promptKey && prompts[promptKey]) {
+                textarea.value = prompts[promptKey];
+                charCount.textContent = textarea.value.length.toLocaleString();
+                
+                // Smooth scroll to textarea
+                textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function copyPrompt() {
+            const text = textarea.value;
+            
+            if (!text) {
+                alert('⚠️ Please select or write a prompt first!');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.style.background = 'linear-gradient(135deg, #28a745, #34ce57)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please copy manually.');
+                textarea.select();
+            });
+        }
+
+        function openChatGPT() {
+            window.open('https://chat.openai.com/', '_blank');
+        }
+
+        function clearPrompt() {
+            if (confirm('Clear the current prompt?')) {
+                textarea.value = '';
+                document.getElementById('promptSelect').value = '';
+                charCount.textContent = '0';
+            }
+        }
+    </script>
+</body>
+</html>

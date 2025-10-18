@@ -1,0 +1,146 @@
+.main {
+  padding-top: 6rem;
+}
+
+.hero {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  color: white;
+  text-align: center;
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.content {
+  padding: 6rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+}
+
+.info {
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+.intro {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+.contactMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.method {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+
+  svg {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.6;
+  }
+}
+
+.form {
+  background: #f8f8f8;
+  padding: 3rem;
+  border-radius: 4px;
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  background: var(--primary-black);
+  color: white;
+  border: none;
+  padding: 1.25rem;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--accent-gold);
+    color: var(--primary-black);
+  }
+}
+
+@media (max-width: 968px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .form {
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,145 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+
+  .logoText {
+    color: var(--primary-black);
+  }
+
+  .logoAccent {
+    color: var(--accent-gold);
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 3rem;
+
+  a {
+    color: var(--primary-black);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: var(--accent-gold);
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 968px) {
+    display: none;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: var(--primary-black);
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--accent-gold);
+  }
+
+  .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent-gold);
+    color: var(--primary-black);
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.mobileMenuBtn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--primary-black);
+
+  @media (max-width: 968px) {
+    display: block;
+  }
+}
+
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  a {
+    padding: 1rem 0;
+    color: var(--primary-black);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
